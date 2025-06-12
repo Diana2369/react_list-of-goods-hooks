@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
-const goodsFromServer: string[] = [
+export const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -15,7 +15,7 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-enum SortType {
+export enum SortType {
   Default = 'DEFAULT',
   Alphabetically = 'ALPHABETICALLY',
   Length = 'LENGTH',
@@ -31,15 +31,15 @@ export const App: React.FC = () => {
 
     switch (type) {
       case SortType.Alphabetically:
-        sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
+        sortedGoods = [...goodsFromServer].sort((a, b) => a.localeCompare(b));
         break;
 
       case SortType.Length:
-        sortedGoods = [...goods].sort((a, b) => a.length - b.length);
+        sortedGoods = [...goodsFromServer].sort((a, b) => a.length - b.length);
         break;
 
       case SortType.Reversed:
-        sortedGoods = [...goods].reverse();
+        sortedGoods = [...goodsFromServer].slice().reverse();
         break;
 
       case SortType.Default:
@@ -52,9 +52,7 @@ export const App: React.FC = () => {
     setSortType(type);
   };
 
-  const isDefaultOrder = goods.every(
-    (item, index) => item === goodsFromServer[index],
-  );
+  const isDefaultOrder = goods.every((item, index) => item === goodsFromServer[index]);
 
   return (
     <div className="section content">
@@ -101,7 +99,7 @@ export const App: React.FC = () => {
       </div>
 
       <ul>
-        {goods.map(item => (
+        {goods.map((item) => (
           <li key={item} data-cy="Good">
             {item}
           </li>
